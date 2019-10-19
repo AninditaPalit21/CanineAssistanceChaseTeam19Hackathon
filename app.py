@@ -1,6 +1,6 @@
 # ./python_code/api.py
 from flask import Flask, render_template,request,redirect,url_for # For flask implementation
-from bson import ObjectId # For ObjectId to work
+# from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 import os
 from flask_restful import Resource, Api, reqparse
@@ -46,22 +46,22 @@ def remove ():
     users.remove({"_id":ObjectId(key)})
     return "ok"
 
-@app.route("/update")
-def update ():
-    id=request.values.get("_id")
-    user=users.find({"_id":ObjectId(id)})
-    return "ok"
-
-@app.route("/search", methods=['GET'])
-def search():
-    #Searching a Task with various references
-    key=request.values.get("key")
-    refer=request.values.get("refer")
-    if(key=="_id"):
-        users_l = users.find({refer:ObjectId(key)})
-    else:
-        users_l = users.find({refer:key})
-    return "ok"
+# @app.route("/update")
+# def update ():
+#     id=request.values.get("_id")
+#     user=users.find({"_id":ObjectId(id)})
+#     return "ok"
+#
+# @app.route("/search", methods=['GET'])
+# def search():
+#     #Searching a Task with various references
+#     key=request.values.get("key")
+#     refer=request.values.get("refer")
+#     if(key=="_id"):
+#         users_l = users.find({refer:ObjectId(key)})
+#     else:
+#         users_l = users.find({refer:key})
+#     return "ok"
 
 if __name__ == "__main__":
      app.run(debug=True)
