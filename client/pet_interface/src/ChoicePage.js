@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -106,7 +107,23 @@ function SimpleButton(props){
                     <span className={classes.imageMarked} />
                 </Typography>
             </span>
-        </ButtonBase> 
+        </ButtonBase>
+}
+
+function handleClick (str) {
+    const params = new URLSearchParams();
+    params.append('result', str);
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:5000/add',
+      data: params
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 class Choices extends Component {
@@ -119,13 +136,16 @@ class Choices extends Component {
     }
 
     changeState(newState){
-        this.setState({currentOption : newState});
+        this.setState({currentOption : newState}, () => {
+          console.log("this is the current state", this.state.currentOption);
+          handleClick(this.state.currentOption);
+        });
     }
 
     choices(option) {
         switch(option) {
             case '':
-                return ( 
+                return (
                     <div>
                         <SimpleButton name={'human'} url={'url'} width={"50%"} changeState={this.changeState}/>
                         <SimpleButton name={'dog'} url={'url'} width={"50%"} changeState={this.changeState}/>
@@ -140,12 +160,12 @@ class Choices extends Component {
                 return (
                     <div>
                         <SimpleButton name={'play'} url={'url'} width={"25%"} changeState={this.changeState}/>
-                        <SimpleButton name={'eat'} url={'url'} width={"25%"} changeState={this.changeState}/>                            
+                        <SimpleButton name={'eat'} url={'url'} width={"25%"} changeState={this.changeState}/>
                         <SimpleButton name={'drink'} url={'url'} width={"25%"} changeState={this.changeState}/>
                         <SimpleButton name={'restroom'} url={'url'} width={"25%"} changeState={this.changeState}/>
                     </div>);
             default:
-                return ( 
+                return (
                     <div>
                         <SimpleButton name={'human'} url={'url'} width={"50%"} changeState={this.changeState}/>
                         <SimpleButton name={'dog'} url={'url'} width={"50%"} changeState={this.changeState}/>

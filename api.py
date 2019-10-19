@@ -16,13 +16,13 @@ title = "Users and Results"
 heading = "Users and Results"
 
 client = MongoClient(HOST_URI) #host uri
-db = client.mymongodb #Select the database
+db = client.K92019 #Select the database
 users = db.User #Select the collection name
 
 @app.route("/")
 def getAllUsers():
     users_l = users.find()
-    return
+    return "ok"
 
 @app.route("/add", methods=['POST'])
 def action ():
@@ -34,21 +34,23 @@ def action ():
     result=request.values.get("result")
     today = datetime.datetime.now()
 
-    users.insert({ "user":user, "disease":disease, "type":type, "condition":condition, "result":result, "date": today})
-    return redirect("/")
+    print("RESULT in api", result)
+
+    users.insert_one({ "user":user, "disease":disease, "type":type, "condition":condition, "result":result, "date": today})
+    return "ok"
 
 @app.route("/remove")
 def remove ():
     #Deleting a Task with various references
     key=request.values.get("_id")
     users.remove({"_id":ObjectId(key)})
-    return redirect("/")
+    return "ok"
 
 @app.route("/update")
 def update ():
     id=request.values.get("_id")
     user=users.find({"_id":ObjectId(id)})
-    return redirect("/")
+    return "ok"
 
 @app.route("/search", methods=['GET'])
 def search():
@@ -59,7 +61,7 @@ def search():
         users_l = users.find({refer:ObjectId(key)})
     else:
         users_l = users.find({refer:key})
-    return redirect("/")
+    return "ok"
 
 if __name__ == "__main__":
      app.run(debug=True)

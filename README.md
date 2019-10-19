@@ -6,7 +6,6 @@ pip install -r requirements.txt
 ```
 Mongodb HOST_URI are in auth.py
 # Run the backend
-```
 to run backend:
 ```
 python3 api.py
