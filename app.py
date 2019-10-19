@@ -9,7 +9,6 @@ from flask_cors import CORS
 import datetime
 
 app = Flask(__name__,
-            static_url_path='',
             static_folder='client/pet_interface/build/static',
             template_folder="client/pet_interface/build")
 CORS(app)
