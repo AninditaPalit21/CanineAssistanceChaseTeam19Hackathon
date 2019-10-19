@@ -1,5 +1,5 @@
 # ./python_code/api.py
-from flask import Flask, render_template,request,redirect,url_for # For flask implementation
+from flask import Flask, render_template,request,redirect,url_for, send_from_directory # For flask implementation
 # from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 import os
@@ -8,7 +8,9 @@ from flask_cors import CORS
 # from auth import HOST_URI
 import datetime
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_url_path='',
+            static_folder='client/pet_interface/build/static')
 CORS(app)
 api = Api(app)
 
@@ -20,6 +22,10 @@ HOST_URI = os.environ["HOST_URI"]
 client = MongoClient(HOST_URI) #host uri
 db = client.K92019 #Select the database
 users = db.User #Select the collection name
+
+# @app.route("/js/<path:path>")
+# def send_js(path):
+#     return send_from_directory('js', path);
 
 @app.route("/")
 def getAllUsers():
