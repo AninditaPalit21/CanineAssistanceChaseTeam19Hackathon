@@ -3,10 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title>
+    <title>test</title>
 
-    <canvas id="myChart" style = "width: 75%; height: 200px"></canvas>
-    <canvas id="myChart2" style = "width: 75%; height: 200px"></canvas>
+
+      <h1 style = "text-align: center; color: #3d3d3d">Recent Trends</h1>
+<div>
+    <canvas id="myChart" style = "width:20%; height: 50px; margin-bottom: 2em"></canvas>
+    <!-- <canvas id="myChart2" style = "width: 60%; height: 200px"></canvas> -->
+    <canvas id="myChart3" style = "width: 60%; height: 200px"></canvas>
+<div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src='https://d3js.org/d3.v4.min.js'></script>
@@ -15,12 +20,21 @@
     <script src="./d3/d3.min.js" charset="utf-8"></script>
     <script src="./c3-0.7.10/c3.min.js"></script>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- BOOTSTRAP ADDITIONS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
   </head>
-  <body>
-
+  <body style = "background-color: #bfbfbf">
     <script type = "text/javascript">
-
           var ctx = document.getElementById('myChart').getContext('2d');
           var chart = new Chart(ctx, {
             // The type of chart we want to create
@@ -31,16 +45,20 @@
             labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             datasets: [{
                 label: 'Seizures',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: '#32a852',
+                borderColor: '#32a852',
                 data: [0, 1, 3, 1, 2, 4, 10]
             }]
           },
           options: {
+            minor: {
+              fontSize: 19
+            },
             title: {
               display: true,
               text: "Frequency of Seizures in Week of 8/21/2019",
-              fontSize: 19
+              fontSize: 19,
+              fontColor: "#3d3d3d"
             }
           }
           });
@@ -48,26 +66,72 @@
     </script>
 
 
-    <script>
+    <!-- <script>
     var ctx2 = document.getElementById('myChart2').getContext('2d');
-    var myDoughnutChart = new Chart(ctx2, {
-        type: 'doughnut',
-        data: data,
-        options: {}
-    });
+      var myChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+      });
+    </script> -->
 
-    data = {
-      datasets: [{
-          data: [10, 20, 30]
-      }],
-
-      // These labels appear in the legend and in the tooltips when hovering different arcs
-      labels: [
-          'Red',
-          'Yellow',
-          'Blue'
-      ]
-    };
+    <script>
+        new Chart(document.getElementById("myChart3"), {
+          type: 'doughnut',
+          data: {
+            labels: ["Human", "Dog", "Blood Pressure", "Blood Sugar", "Epilepsy",
+          "Play", "Eat", "Drink", "Restroom", "High Blood Pressure", "Low Blood Pressure"],
+            datasets: [
+              {
+                label: "Frequency of Molly's Paws",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#e1eb57"
+              ,"#8bc5e0", "#958be0", "#f2bbc4", "#e8b397", "#ffbfd3"],
+                borderColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#e1eb57"
+              ,"#8bc5e0", "#958be0", "#f2bbc4", "#e8b397", "#ffbfd3"],
+                data: [6,20,2,1,0, 5, 5, 5, 5, 2,2]
+              }
+            ]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Frequency of Molly's Paws - Week 8/21/2019",
+              fontSize: 19,
+              fontColor: "#3d3d3d"
+            }
+          }
+        });
     </script>
 
   </body>
