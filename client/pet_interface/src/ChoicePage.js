@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -109,6 +110,14 @@ function SimpleButton(props){
         </ButtonBase> 
 }
 
+await handleClick (resultString) {
+    axios.post('http://127.0.0.1:5000/add', { 
+        result: resultString
+    })
+
+}
+
+
 class Choices extends Component {
 
     constructor(props){
@@ -117,6 +126,7 @@ class Choices extends Component {
         this.choices = this.choices.bind(this);
         this.changeState = this.changeState.bind(this);
     }
+
 
     changeState(newState){
         this.setState({currentOption : newState});
@@ -127,7 +137,7 @@ class Choices extends Component {
             case '':
                 return ( 
                     <div>
-                        <SimpleButton name={'human'} url={'url'} width={"50%"} changeState={this.changeState}/>
+                        <SimpleButton name={'human'} url={'url'} width={"50%"} changeState={this.changeState} onClick={this.handleClick("human")}/>
                         <SimpleButton name={'dog'} url={'url'} width={"50%"} changeState={this.changeState}/>
                     </div>);
             case 'human':
