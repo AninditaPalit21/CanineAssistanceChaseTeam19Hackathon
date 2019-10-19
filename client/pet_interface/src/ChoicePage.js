@@ -130,6 +130,22 @@ function handleClick (str) {
         });
 }
 
+function handleEmail(str){
+  const params = new URLSearchParams();
+  params.append('value', str);
+  axios({
+    method: 'get',
+    url: 'http://127.0.0.1:5000/email',
+    data: params
+})
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+}
+
 class Choices extends Component {
 
     constructor(props){
@@ -149,9 +165,11 @@ class Choices extends Component {
         this.setState({currentOption : newState}, () => {
             console.log("this is the current state", this.state.currentOption);
             handleClick(this.state.currentOption);
+            handleEmail(this.state.currentOption);
         });
         this.SaySomething("Help!" + newState + " Alert");
-    } 
+
+    }
 
     changeStateAndNotify(newState){
         this.setState({currentOption : newState}, () => {
@@ -159,6 +177,7 @@ class Choices extends Component {
             handleClick(this.state.currentOption);
         });
         this.SaySomething(newState);
+        handleEmail(newState);
     }
 
     SaySomething(intext){
@@ -196,7 +215,7 @@ class Choices extends Component {
                     <div>
                         <SimpleButton name={'Blood Pressure'} url={'https://media.istockphoto.com/vectors/blood-pressure-gauge-instrument-drawing-vector-id472337796?k=6&m=472337796&s=612x612&w=0&h=lLbivvFQ_AjDcu1tmc1bYZLYeEMJZxDk5tgkTlfhOAI='} height={"338px"} width={"47%"} changeState={this.changeState}/>
                         <SimpleButton name={'Blood Sugar'} url={'https://media.gettyimages.com/vectors/blood-glucose-medical-flat-design-themed-icon-set-with-shadow-vector-id1009796528?s=612x612'} height={"338px"} width={"47%"} changeState={this.changeState}/>
-                        <SimpleButton name={'Epilepsy'} url={'https://2rdnmg1qbg403gumla1v9i2h-wpengine.netdna-ssl.com/wp-content/uploads/sites/3/2019/05/epilepsyMyths-868954686-770x553-650x428.jpg'} height={"338px"} width={"47%"} changeState={this.changeStateAndCall911}/>   
+                        <SimpleButton name={'Epilepsy'} url={'https://2rdnmg1qbg403gumla1v9i2h-wpengine.netdna-ssl.com/wp-content/uploads/sites/3/2019/05/epilepsyMyths-868954686-770x553-650x428.jpg'} height={"338px"} width={"47%"} changeState={this.changeStateAndCall911}/>
                         </div>);
             case 'Dog':
                 return (
@@ -209,12 +228,12 @@ class Choices extends Component {
             case 'Blood Pressure':
                 return (<div>
                     <SimpleButton name={'High Blood Pressure'} url={'https://us.123rf.com/450wm/cowpland/cowpland1706/cowpland170600010/80179622-stock-vector-blood-pressure-icon.jpg?ver=6'} height={"700px"} width={"47%"} changeState={this.changeStateAndNotify}/>
-                    <SimpleButton name={'Low Blood Pressure'} url={'https://previews.123rf.com/images/simmmax/simmmax1608/simmmax160800233/61453412-low-blood-pressure-digital-concept.jpg'} height={"700px"} width={"47%"} changeState={this.changeStateAndNotify}/>   
+                    <SimpleButton name={'Low Blood Pressure'} url={'https://previews.123rf.com/images/simmmax/simmmax1608/simmmax160800233/61453412-low-blood-pressure-digital-concept.jpg'} height={"700px"} width={"47%"} changeState={this.changeStateAndNotify}/>
                     </div>);
             case 'Blood Sugar':
                 return (<div>
                     <SimpleButton name={'High Blood Sugar'} url={'https://thumbs.dreamstime.com/z/high-level-blood-sugar-vector-icon-diabetes-sign-81297690.jpg'} height={"700px"} width={"47%"} changeState={this.changeStateAndNotify}/>
-                    <SimpleButton name={'Low Blood Sugar'} url={'http://www.wockhardtdiabetic.com/images/complication/Hypoglycemia.png'} height={"700px"} width={"47%"} changeState={this.changeStateAndNotify}/>   
+                    <SimpleButton name={'Low Blood Sugar'} url={'http://www.wockhardtdiabetic.com/images/complication/Hypoglycemia.png'} height={"700px"} width={"47%"} changeState={this.changeStateAndNotify}/>
                     </div>);
             default:
                 return (

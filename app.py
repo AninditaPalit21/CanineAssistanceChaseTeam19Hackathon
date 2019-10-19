@@ -5,20 +5,21 @@ from pymongo import MongoClient
 import os
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
-# from auth import HOST_URI
-#hi
+from auth import HOST_URI
 import datetime
+import smtplib
 
-app = Flask(__name__,
-            static_folder='client/pet_interface/build/static',
-            template_folder="client/pet_interface/build")
+# app = Flask(__name__,
+#             static_folder='client/pet_interface/build/static',
+#             template_folder="client/pet_interface/build")
+app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
 title = "Users and Results"
 heading = "Users and Results"
 
-HOST_URI = os.environ["HOST_URI"]
+#HOST_URI = os.environ["HOST_URI"]
 
 client = MongoClient(HOST_URI) #host uri
 db = client.K92019 #Select the database
@@ -28,9 +29,13 @@ users = db.User #Select the collection name
 # def send_js(path):
 #     return send_from_directory('js', path);
 
+# @app.route("/")
+# def hello():
+#     return render_template("index.html")
+
 @app.route("/")
 def hello():
-    return render_template("index.html")
+    return "ok"
 
 @app.route("/add", methods=['POST'])
 def action ():
@@ -45,6 +50,18 @@ def action ():
     print("RESULT in api", result)
 
     users.insert_one({ "user":user, "disease":disease, "type":type, "condition":condition, "result":result, "date": today})
+    return "ok"
+
+@app.route("/email")
+def update ():
+    body = request.values.get("value")
+    print("passed into email", body)
+
+    conn = smtplib.SMTP('smtp.gmail.com', 587)
+    conn.ehlo()
+    conn.starttls()
+    conn.login('mshei1824@gmail.com', 'yowh qvlj ixmf acne')
+    conn.sendmail('mshei1824@gmail.com', 'welovedogs123456@gmail.com', 'Your dog has alerted that you are at risk of high blood pressure.')
     return "ok"
 
 @app.route("/remove")
