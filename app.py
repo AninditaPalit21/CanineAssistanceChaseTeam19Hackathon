@@ -10,7 +10,8 @@ import datetime
 
 app = Flask(__name__,
             static_url_path='',
-            static_folder='client/pet_interface/build/static')
+            static_folder='client/pet_interface/build/static',
+            template_folder="client/pet_interface/build")
 CORS(app)
 api = Api(app)
 
@@ -28,9 +29,8 @@ users = db.User #Select the collection name
 #     return send_from_directory('js', path);
 
 @app.route("/")
-def getAllUsers():
-    users_l = users.find()
-    return "ok"
+def hello():
+    return render_template("index.html")
 
 @app.route("/add", methods=['POST'])
 def action ():
