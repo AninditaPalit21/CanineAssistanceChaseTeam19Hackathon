@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import os
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
-from auth import HOST_URI
+# from auth import HOST_URI
 import datetime
 
 app = Flask(__name__)
@@ -14,6 +14,8 @@ api = Api(app)
 
 title = "Users and Results"
 heading = "Users and Results"
+
+HOST_URI = os.environ["HOST_URI"]
 
 client = MongoClient(HOST_URI) #host uri
 db = client.K92019 #Select the database
